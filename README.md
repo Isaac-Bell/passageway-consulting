@@ -6,9 +6,15 @@ regulate, heal, and step into their lives with clarity and empowerment.
 
 ## Live website
 
-- Current production site: <https://passageway-consulting.isaacmosesbell.chatgpt.site>
-- Custom domain: <https://passagewayconsulting.com> (DNS activation in progress)
+- Current production site: <https://passagewayconsulting.com>
+- ChatGPT Sites URL: <https://passageway-consulting.isaacmosesbell.chatgpt.site>
 - Appointments: <https://passagewayconsulting.as.me/>
+
+## Project context
+
+Read [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) before changing the site's
+content, design, SEO, analytics, or release process. It records Passageway's
+positioning, voice, offers, technical architecture, and confirmed next work.
 
 ## What is included
 
