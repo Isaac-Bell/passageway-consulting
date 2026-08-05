@@ -234,10 +234,16 @@ Preserve these principles:
 - Production build: `npm run build`
 - Full validation: `npm test`
 - Node.js requirement: `>=22.13.0`
+- GitHub Actions workflow: `.github/workflows/quality.yml`
 
 The build produces the validated Worker/server artifact and static assets used
 by Sites. Do not replace the hosting manifest, Vinext architecture, lockfile, or
 verified build scripts without a specific technical reason.
+
+GitHub Actions automatically runs the production build and tests for every pull
+request into `main` and every push to `main`. A successful push to `main` also
+retains the `dist/` deployment artifact for 14 days. This is an automatic build
+and quality gate; it does not automatically publish a new ChatGPT Sites version.
 
 ## Source and release workflow
 
@@ -246,8 +252,10 @@ verified build scripts without a specific technical reason.
 3. Make only the approved changes and preserve unrelated work.
 4. Run the relevant build, tests, responsive/accessibility checks, and visual
    review.
-5. Open a draft pull request describing the content and user impact.
-6. Review and merge the PR into GitHub `main`.
+5. Open a draft pull request describing the content and user impact. GitHub
+   Actions must complete the `Build and test` check.
+6. Review and merge the PR into GitHub `main`; the workflow builds `main` again
+   and retains its artifact.
 7. Deliberately deploy the merged `main` through the existing ChatGPT Sites
    project.
 8. Verify the deployment and `https://passagewayconsulting.com`.
@@ -359,4 +367,3 @@ or alongside those edits, prioritize:
 - Social profile URLs
 - Privacy-policy and analytics-consent requirements
 - Which email addresses should receive analytics reports
-
