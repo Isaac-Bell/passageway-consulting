@@ -48,10 +48,11 @@ Use welcoming, inclusive language that lets a visitor arrive without already
 having the right words. Do not assume that she sees herself as broken or needs
 to be fixed.
 
-The exact geographic service area and the balance of online versus in-person
-services still need to be confirmed before location-specific claims are added.
-Kansas City-area positioning is a likely SEO opportunity but must be approved
-by Hannah and Kimberly first.
+Passageway is based in Kansas City, Missouri. All consultations, workshops, and
+cohorts are delivered online, serving women across the United States and
+worldwide. The site may truthfully use “Kansas City-based” alongside clear
+online availability, but it must not imply that clients visit a local office or
+that in-person appointments are available.
 
 ## Core positioning
 
@@ -279,39 +280,43 @@ crawler directives, `robots.txt`, `sitemap.xml`, Open Graph and social sharing
 metadata, and truthful Organization, WebSite, and Service JSON-LD. Production
 tests verify the rendered metadata and both crawler routes.
 
-Google Search Console verification, sitemap submission, the first indexing
-request, local-service wording, and deeper service/resource pages remain
-separate launch tasks.
+The Google Search Console domain property was verified through a Porkbun DNS
+TXT record and `sitemap.xml` was submitted successfully on August 6, 2026.
+The sitemap now expands automatically as focused service and resource pages are
+added. The first indexing request and ongoing Search Console monitoring remain
+launch tasks.
 
 ### Technical SEO priorities
 
-- Create and verify a Google Search Console **domain property** using a Porkbun
-  DNS TXT record.
-- Add and submit `sitemap.xml`.
+- Monitor the verified Google Search Console **domain property** for indexing,
+  crawl, structured-data, and Core Web Vitals reports.
+- Keep the submitted `sitemap.xml` current as canonical pages are added.
 - Add or verify `robots.txt` and ensure production pages are indexable.
 - Set the canonical site URL and consistent canonical tags to the custom domain.
 - Improve unique titles, meta descriptions, social sharing metadata, image alt
   text, and semantic heading structure.
-- Add truthful JSON-LD structured data for the organization and, once location
-  details are confirmed, the appropriate local business/service information.
+- Keep truthful Organization and Service JSON-LD aligned with visible page
+  content. Use Kansas City as the business base and worldwide as the online
+  service area; do not add a physical address that is not public.
 - Validate structured data and inspect the live URL through Search Console.
 - Track Core Web Vitals and preserve fast mobile performance.
 
 ### Content and local-search priorities
 
-- Target specific high-intent phrases before broad national terms, for example
+- Target specific high-intent phrases before broad national terms, including
   “emotional health consulting Kansas City,” “women's emotional health
-  workshops Kansas City,” “nervous system regulation support for women,” and
-  “self-compassion coaching for women.” Final wording depends on confirmed
-  location and service format.
+  coaching Kansas City,” “nervous system regulation support for women,”
+  “self-compassion coaching for women,” “women's emotional health workshops,”
+  and “Christian emotional health consulting.” Use these naturally in useful
+  pages rather than repeating them mechanically.
 - Develop useful, substantial pages for one-to-one consulting, workshops,
   cohorts, the founders, guiding truths, and resources. Give each page a clear
   search purpose and unique metadata.
 - Publish people-first articles and resources that reflect Hannah and
   Kimberly's real experience rather than generic keyword content.
-- Create or complete the appropriate Google Business Profile if the business
-  is eligible, keeping name, service area, website, and contact details
-  consistent.
+- Do not assume eligibility for a Google Business Profile: Passageway is
+  online-only and does not currently meet clients in person. Reassess only if
+  the delivery model changes and Google’s eligibility rules are satisfied.
 - Ask trusted partners already mentioning Passageway, including relevant local
   wellness organizations, to link to the custom domain.
 - Link the domain from approved social profiles, newsletters, workshop listings,
@@ -358,22 +363,19 @@ weekly reporting will become more useful once traffic and active campaigns grow.
 After the next business meeting, expect content and offer refinements. Before
 or alongside those edits, prioritize:
 
-1. Google Search Console verification and indexing request;
-2. sitemap, robots, canonical metadata, structured data, and improved page
-   metadata;
-3. a decision on local-service wording and online/in-person availability;
-4. GA4 installation with booking, download, newsletter, and cohort events;
-5. a scheduled monthly email report;
-6. Mailchimp integration once the final form details are supplied; and
-7. splitting the current long homepage into focused service/resource pages when
-   the offer structure is approved.
+1. request indexing for the homepage and each new canonical service page;
+2. monitor Search Console query, page, country, device, and position data;
+3. GA4 installation with booking, download, newsletter, and cohort events;
+4. a scheduled monthly email report;
+5. Mailchimp integration once the final form details are supplied; and
+6. publish expert-led articles and resources based on Hannah and Kimberly’s
+   real workshops, questions, and lived experience.
 
 ## Items that must be confirmed rather than assumed
 
 - Kimberly's preferred public full name and any credentials
-- The public business address, service area, and whether the address should be
-  displayed
-- Online versus in-person availability
+- Whether a public mailing or office address should ever be displayed (do not
+  infer one from registration or contact records)
 - Workshop and cohort dates, format, pricing, capacity, and curriculum
 - Mailchimp signup URL or integration details
 - Social profile URLs

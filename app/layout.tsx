@@ -3,9 +3,9 @@ import "./globals.css";
 
 const siteUrl = "https://passagewayconsulting.com";
 const siteTitle =
-  "Emotional Health Consulting for Women | Passageway Consulting";
+  "Online Emotional Health Consulting for Women | Passageway Consulting";
 const siteDescription =
-  "Compassionate emotional health and life consulting for women through one-to-one sessions, workshops, and cohorts with Hannah Spacek and Kimberly.";
+  "Kansas City-based online emotional health and life consulting for women across the U.S. and worldwide through one-to-one sessions, workshops, and cohorts.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -75,6 +75,10 @@ const organizationJsonLd = {
       image: `${siteUrl}/images/hannah-kimberly.webp`,
       description: siteDescription,
       email: "hello@passagewayconsulting.com",
+      location: {
+        "@type": "Place",
+        name: "Kansas City, Missouri",
+      },
       founder: [
         {
           "@type": "Person",
@@ -110,11 +114,17 @@ const organizationJsonLd = {
       "@id": `${siteUrl}/#emotional-health-consulting`,
       name: "Emotional Health and Life Consulting for Women",
       serviceType: "Emotional health and life consulting",
-      url: siteUrl,
+      url: `${siteUrl}/online-emotional-health-consulting`,
       description:
-        "One-to-one consulting, workshops, and cohorts supporting women through compassion, regulation, and empowerment.",
+        "Online one-to-one consulting, workshops, and cohorts supporting women through compassion, regulation, and empowerment.",
       provider: {
         "@id": `${siteUrl}/#organization`,
+      },
+      areaServed: "Worldwide",
+      availableChannel: {
+        "@type": "ServiceChannel",
+        serviceUrl: `${siteUrl}/online-emotional-health-consulting`,
+        availableLanguage: "English",
       },
       audience: {
         "@type": "PeopleAudience",
