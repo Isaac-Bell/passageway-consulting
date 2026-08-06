@@ -175,10 +175,10 @@ export default function Home() {
         <div className="hero-glow hero-glow-two" />
         <div className="shell hero-grid">
           <div className="hero-copy">
-            <p className="kicker animate-in">Compassion <span>·</span> Regulation <span>·</span> Empowerment</p>
+            <p className="kicker animate-in">Emotional health consulting for women</p>
             <h1 className="animate-in delay-one">There is a way <em>through.</em></h1>
             <p className="hero-intro animate-in delay-two">
-              Guiding you to personal freedom and transformation through the Passageway of compassion and empowerment.
+              Hannah and Kimberly offer compassionate emotional health and life consulting—guiding you toward personal freedom through regulation, truth, and empowerment.
             </p>
             <div className="hero-actions animate-in delay-three">
               <a className="button button-dark" href={bookingUrl} target="_blank" rel="noreferrer">Book a consultation <Arrow /></a>
