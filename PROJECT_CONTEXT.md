@@ -271,6 +271,18 @@ The custom domain is new and was not found by a `site:passagewayconsulting.com`
 search on August 6, 2026. Indexing and meaningful ranking should be treated as
 an intentional launch phase, not an overnight refresh.
 
+### Technical SEO status
+
+The SEO foundation includes production metadata centered on emotional health
+and life consulting for women, a self-referencing canonical URL, index/follow
+crawler directives, `robots.txt`, `sitemap.xml`, Open Graph and social sharing
+metadata, and truthful Organization, WebSite, and Service JSON-LD. Production
+tests verify the rendered metadata and both crawler routes.
+
+Google Search Console verification, sitemap submission, the first indexing
+request, local-service wording, and deeper service/resource pages remain
+separate launch tasks.
+
 ### Technical SEO priorities
 
 - Create and verify a Google Search Console **domain property** using a Porkbun
