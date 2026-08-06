@@ -9,24 +9,24 @@ const pathways = [
     eyebrow: "Personal",
     title: "One-to-one consulting",
     copy: "Personalized support to explore emotional wounds, reclaim your power, and move forward with greater resilience.",
-    href: "#guides",
-    link: "Meet your guides",
+    href: "/online-emotional-health-consulting",
+    link: "Explore online consulting",
   },
   {
     number: "02",
     eyebrow: "Shared",
     title: "One-day workshops",
     copy: "A brief but impactful experience where learning, honest connection, and shared healing come together.",
-    href: "#experiences",
-    link: "Explore workshops",
+    href: "/online-womens-emotional-health-workshops",
+    link: "Explore online workshops",
   },
   {
     number: "03",
     eyebrow: "Transformational",
     title: "Three-week programs",
     copy: "An immersive journey for women ready to grow in community, practice new tools, and make change last.",
-    href: "#cohorts",
-    link: "Join a cohort",
+    href: "/online-womens-emotional-health-workshops#cohorts",
+    link: "Explore online cohorts",
   },
 ];
 
@@ -108,7 +108,7 @@ const faqs = [
   {
     question: "Are sessions online or in person?",
     answer:
-      "Availability can vary by offering. Send a booking enquiry and we will confirm the current online and in-person options with you.",
+      "All Passageway consultations, workshops, and cohorts are held online. Hannah and Kimberly are based in Kansas City and welcome women from across the United States and worldwide.",
   },
   {
     question: "Can I join a program on my own?",
@@ -146,6 +146,8 @@ export default function Home() {
               <div>
                 <Link href="#beliefs">Guiding truths</Link>
                 <Link href="#resources">Free reflection guide</Link>
+                <Link href="/nervous-system-regulation-for-women">Nervous-system support</Link>
+                <Link href="/self-compassion-for-women">Self-compassion</Link>
               </div>
             </details>
           </nav>
@@ -164,6 +166,8 @@ export default function Home() {
               <Link href="#beliefs">Guiding truths</Link>
               <Link href="#pricing">Pricing</Link>
               <Link href="#resources">Free reflection guide</Link>
+              <Link href="/online-emotional-health-consulting">Online consulting</Link>
+              <Link href="/online-womens-emotional-health-workshops">Online workshops</Link>
               <a href={bookingUrl} target="_blank" rel="noreferrer">Book a session</a>
             </div>
           </details>
@@ -175,10 +179,10 @@ export default function Home() {
         <div className="hero-glow hero-glow-two" />
         <div className="shell hero-grid">
           <div className="hero-copy">
-            <p className="kicker animate-in">Emotional health consulting for women</p>
+            <p className="kicker animate-in">Online emotional health consulting for women</p>
             <h1 className="animate-in delay-one">There is a way <em>through.</em></h1>
             <p className="hero-intro animate-in delay-two">
-              Hannah and Kimberly offer compassionate emotional health and life consulting—guiding you toward personal freedom through regulation, truth, and empowerment.
+              Based in Kansas City and meeting online worldwide, Hannah and Kimberly offer compassionate emotional health and life consulting grounded in regulation, truth, and empowerment.
             </p>
             <div className="hero-actions animate-in delay-three">
               <a className="button button-dark" href={bookingUrl} target="_blank" rel="noreferrer">Book a consultation <Arrow /></a>
@@ -207,7 +211,7 @@ export default function Home() {
 
         <div className="shell hero-foot">
           <p>Passageway is a place to pause, reconnect, and move forward with support.</p>
-          <span aria-hidden="true">Est. with intention</span>
+          <span>Kansas City–based · Online worldwide</span>
         </div>
       </section>
 
@@ -216,7 +220,7 @@ export default function Home() {
           <div className="section-heading reveal">
             <p className="kicker">Ways to work together</p>
             <h2>Support for the step you’re on.</h2>
-            <p>Whether you need a quiet one-to-one conversation or a longer shared journey, there is room to begin exactly where you are.</p>
+            <p>Whether you need a quiet one-to-one conversation or a longer shared journey, every offering is online and there is room to begin exactly where you are.</p>
           </div>
 
           <div className="pathway-grid">
@@ -298,6 +302,7 @@ export default function Home() {
               <div><span>02</span><strong>Regulation</strong><p>Build safety in the body and nervous system.</p></div>
               <div><span>03</span><strong>Empowerment</strong><p>Reclaim your voice, choices, and power.</p></div>
             </div>
+            <Link className="text-link life-service-link" href="/online-emotional-health-consulting">Learn about online emotional health consulting <Arrow /></Link>
           </div>
           <div className="life-art reveal">
             <div className="life-arch" aria-hidden="true" />
@@ -520,13 +525,13 @@ export default function Home() {
             <p>Connect. Heal. Empower.</p>
           </div>
           <div className="footer-links">
-            <div><strong>Explore</strong><a href="#about">About</a><a href="#story">Our story</a><a href="#beliefs">Guiding truths</a><a href="#resources">Free guide</a></div>
+            <div><strong>Explore</strong><a href="#about">About</a><Link href="/online-emotional-health-consulting">Online consulting</Link><Link href="/nervous-system-regulation-for-women">Nervous-system support</Link><Link href="/online-womens-emotional-health-workshops">Online workshops</Link><Link href="/self-compassion-for-women">Self-compassion</Link></div>
             <div><strong>Connect</strong><a href={bookingUrl} target="_blank" rel="noreferrer">Book Hannah</a><a href={bookingUrl} target="_blank" rel="noreferrer">Book Kimberly</a><a href={`mailto:${email}`}>Email us</a></div>
           </div>
         </div>
         <div className="shell footer-bottom">
           <span>© {new Date().getFullYear()} Passageway Consulting</span>
-          <span>Made with care for women in transition.</span>
+          <span>Kansas City–based · Online worldwide</span>
         </div>
       </footer>
     </main>
