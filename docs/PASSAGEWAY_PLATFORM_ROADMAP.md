@@ -18,9 +18,11 @@ Passageway-owned Supabase content, authentication, and uploads.
 - **Editor:** services, events, blog posts, resources, team profiles,
   testimonials, and homepage announcements.
 - The initial administrator is `isaacmosesbell@gmail.com`.
-- Hannah and Kimberly can be added as editors using their ordinary email
-  addresses. They sign in through a secure one-time email link and do not need
-  ChatGPT accounts.
+- `passagewayconsultingkc@gmail.com` is the current shared Passageway
+  administrator. Hannah and Kimberly should move to separate named accounts
+  before private applicant or client information is introduced.
+- Invited users can sign in with a persistent password or a secure one-time
+  email link.
 
 ### Managed content
 
@@ -48,8 +50,9 @@ Passageway-owned Supabase content, authentication, and uploads.
   timestamps. Isaac can manage it in Supabase or connect DBeaver using a
   Supabase Postgres connection string.
 - Supabase Storage stores uploaded JPG, PNG, WebP, and PDF files.
-- Supabase Auth supplies passwordless email sign-in. A database allowlist and
-  row-level security restrict all draft and write access to Passageway staff.
+- Supabase Auth supplies email/password and passwordless email sign-in. A
+  database allowlist and row-level security restrict all draft and write access
+  to Passageway staff.
 - The production project is `Passageway Consulting` in the `Owl Consulting`
   organization, region `us-east-2`, project reference `qmlidzzjsutgjnocaain`.
 - Production Auth configuration must use `https://passagewayconsulting.com` as
@@ -76,13 +79,14 @@ completion, and cohort-interest clicks without sending names, email addresses,
 health concerns, or booking details. A monthly email report is the initial
 recommended cadence.
 
-### Booking and commerce
+### Booking, cohorts, and commerce
 
-The current Acuity booking page remains the safe production path. A future
-native journey can present consultant/service selection inside Passageway and
-hand off to Acuity or Stripe for scheduling and payment. No payment or booking
-API should be invented before Passageway confirms the provider, credentials,
-products, refund language, taxes, and operational owner.
+The current Acuity booking page remains the safe production path while a native
+Passageway journey is built in stages. The agreed direction covers cohort
+interest/applications and rosters, guided intake, Stripe Checkout, payment
+tracking, consultant availability, calendar events, and cohort communication.
+The detailed architecture, delivery phases, security boundaries, and required
+business decisions live in `docs/COHORTS_BOOKING_PAYMENTS_PLAN.md`.
 
 ## Release workflow
 
@@ -96,10 +100,10 @@ products, refund language, taxes, and operational owner.
 
 ## Information still required
 
-- Hannah's editor email;
-- Kimberly's editor email;
-- Kimberly's preferred public full name and credentials;
+- Separate Hannah and Kimberly admin emails before private client records are introduced;
+- Kimberly Rankins' final public credentials, if any;
 - Mailchimp form/API configuration and consent wording;
 - GA4 measurement details and analytics-report recipients;
-- confirmed event dates, formats, capacity, curricula, and pricing; and
-- any future Stripe/Acuity API credentials and approved payment policies.
+- confirmed event dates, formats, capacity, curricula, and pricing;
+- any future Stripe/Acuity API credentials and approved payment policies; and
+- the calendar provider/account currently used for Passageway appointments.

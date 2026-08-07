@@ -60,6 +60,7 @@ test("renders complete indexable SEO metadata", async () => {
   assert.match(html, /"@type":"Organization"/i);
   assert.match(html, /Online emotional health consulting for women/i);
   assert.match(html, /Kansas City–based · Online worldwide/i);
+  assert.match(html, /Kimberly Rankins/i);
 });
 
 test("serves crawler instructions with the canonical sitemap", async () => {
@@ -180,6 +181,12 @@ test("keeps Passageway Admin private and ready for Passageway-owned email sign-i
 
 test("public CMS API degrades safely before Supabase is configured", async () => {
   const response = await fetchSite("/api/public/content?collection=posts", "application/json");
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), { items: [] });
+});
+
+test("public team API degrades safely before Supabase is configured", async () => {
+  const response = await fetchSite("/api/public/content?collection=team", "application/json");
   assert.equal(response.status, 200);
   assert.deepEqual(await response.json(), { items: [] });
 });

@@ -13,6 +13,10 @@ type EventItem = {
 };
 type Post = { id: number | string; slug: string; title: string; excerpt: string; coverImageUrl: string; authorName: string; category: string; publishedAt: string };
 type Resource = { id: number | string; slug: string; title: string; description: string; category: string; fileUrl: string; imageUrl: string; requiresEmail: boolean };
+type TeamMember = {
+  id: number | string; slug: string; name: string; title: string; bio: string; credentials: string; focusAreas: string;
+  imageUrl: string; bookingUrl: string; active: boolean; sortOrder: number;
+};
 
 const bookingUrl = "https://passagewayconsulting.as.me/";
 
@@ -21,6 +25,21 @@ const fallbackServices: Service[] = [
   { id: "joint", slug: "joint-consulting", name: "Kimberly + Hannah", eyebrow: "Combined", category: "Consulting", summary: "Two complementary perspectives in one supportive space, grounded in compassion, regulation, and empowerment.", description: "Two complementary perspectives, one supportive space, and a shared commitment to your growth.", initialPrice: "$160", followUpPrice: "$110", priceNote: "Initial session · Follow-up consultation", bookingUrl, featured: true },
   { id: "workshop", slug: "online-womens-emotional-health-workshops", name: "One-day workshops", eyebrow: "Shared", category: "Workshop", summary: "A brief but impactful experience where learning, honest connection, and shared healing come together.", description: "Online experiences blending education, reflection, and meaningful connection.", initialPrice: "", followUpPrice: "", priceNote: "", bookingUrl: "/online-womens-emotional-health-workshops", featured: false },
   { id: "cohort", slug: "online-womens-emotional-health-workshops#cohorts", name: "Three-week programs", eyebrow: "Transformational", category: "Cohort", summary: "An immersive journey for women ready to grow in community, practice new tools, and make change last.", description: "A longer rhythm of learning, conversation, practice, and community.", initialPrice: "", followUpPrice: "", priceNote: "", bookingUrl: "/online-womens-emotional-health-workshops#cohorts", featured: false },
+];
+
+const fallbackTeam: TeamMember[] = [
+  {
+    id: "hannah-spacek", slug: "hannah-spacek", name: "Hannah Spacek", title: "ND, CHC · Life Consultant",
+    bio: "Hannah has worked in the wellness field for over ten years and has spent more than eight years on her own healing journey—overcoming chronic anxiety, people-pleasing, low self-esteem, and the struggle to have a voice.\n\nToday, she combines natural health principles with practical guidance to help women move beyond limiting beliefs and into self-acceptance, confidence, and freedom.",
+    credentials: "Naturopath · Regenerative Detoxification Specialist · Certified Health Coach",
+    focusAreas: "Dating, Anxiety, Self-esteem, Empowerment", imageUrl: "/images/hannah-spacek.webp", bookingUrl, active: true, sortOrder: 1,
+  },
+  {
+    id: "kimberly", slug: "kimberly", name: "Kimberly Rankins", title: "Life Consultant",
+    bio: "With more than 30 years in Christian ministry and a deeply lived healing journey, Kimberly brings compassion, love, and truth to women navigating insecurity, self-hatred, religious trauma, toxic relationships, and long-standing beliefs that no longer serve them.",
+    credentials: "More than 30 years ministering to women",
+    focusAreas: "Trauma, Self-worth, Voice, Personal freedom", imageUrl: "/images/kimberly.webp", bookingUrl, active: true, sortOrder: 2,
+  },
 ];
 
 export function FeaturedEventBanner() {
@@ -97,6 +116,48 @@ export function ManagedServices({ variant }: { variant: "pathways" | "pricing" }
         </div>
       </div>
     </section>
+  );
+}
+
+export function ManagedTeam() {
+  const [team, setTeam] = useState<TeamMember[]>(fallbackTeam);
+
+  useEffect(() => {
+    fetch("/api/public/content?collection=team", { cache: "no-store" })
+      .then((response) => response.json())
+      .then((payload: { items?: TeamMember[] }) => {
+        if (payload.items?.length) setTeam(payload.items);
+      })
+      .catch(() => undefined);
+  }, []);
+
+  return (
+    <div className="guide-grid">
+      {team.map((member) => {
+        const firstName = member.name.trim().split(/\s+/)[0] || member.name;
+        const portraitClass = member.slug?.includes("hannah") ? "hannah-portrait" : member.slug?.includes("kimberly") ? "kimberly-portrait" : "";
+        const focusAreas = (member.focusAreas || "").split(",").map((area) => area.trim()).filter(Boolean);
+        const paragraphs = (member.bio || "").split(/\n\s*\n/).map((paragraph) => paragraph.trim()).filter(Boolean);
+
+        return (
+          <article className="guide-card reveal" key={member.id}>
+            <div className={`guide-portrait ${portraitClass}`.trim()}>
+              <img src={member.imageUrl} alt={member.name} width={900} height={member.slug?.includes("hannah") ? 1333 : 900} />
+            </div>
+            <div className="guide-content">
+              <p className="card-eyebrow">{member.title || "Life Consultant"}</p>
+              <h3>{member.name}</h3>
+              {member.credentials && <p className="guide-role">{member.credentials}</p>}
+              {paragraphs.map((paragraph, index) => <p className={index > 0 ? "guide-second-paragraph" : undefined} key={`${member.id}-bio-${index}`}>{paragraph}</p>)}
+              {focusAreas.length > 0 && <div className="focus-tags">{focusAreas.map((area) => <span key={area}>{area}</span>)}</div>}
+              <a className="button button-cream" href={member.bookingUrl || bookingUrl} target="_blank" rel="noreferrer">
+                Book with {firstName} <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
   );
 }
 

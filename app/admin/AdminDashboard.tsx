@@ -138,6 +138,20 @@ export default function AdminDashboard({ user, accessToken, onSignOut }: { user:
     return fetch(input, { ...init, headers });
   }, [accessToken]);
 
+  useEffect(() => {
+    function syncCollectionFromUrl() {
+      const requested = new URLSearchParams(window.location.search).get("section") as ContentCollection | null;
+      if (!requested || !available.includes(requested)) return;
+      setCollection(requested);
+      setEditing(null);
+      setForm({});
+    }
+
+    syncCollectionFromUrl();
+    window.addEventListener("popstate", syncCollectionFromUrl);
+    return () => window.removeEventListener("popstate", syncCollectionFromUrl);
+  }, [available]);
+
   const load = useCallback(async (next: ContentCollection) => {
     setLoading(true); setMessage("");
     try {
@@ -171,6 +185,9 @@ export default function AdminDashboard({ user, accessToken, onSignOut }: { user:
   }, [available, authorizedFetch, collection]);
 
   function selectCollection(next: ContentCollection) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("section", next);
+    window.history.pushState({}, "", `${url.pathname}${url.search}${url.hash}`);
     setCollection(next); setEditing(null); setForm({});
   }
 

@@ -65,6 +65,11 @@
 .admin-login-form label { display: grid; gap: 8px; color: #53635f; font-size: 10px; font-weight: 700; letter-spacing: .04em; }
 .admin-login-form input { min-height: 46px; padding: 11px 13px; border: 1px solid var(--admin-line); border-radius: 2px; background: white; color: var(--admin-ink); font: 14px Arial, sans-serif; }
 .admin-login-form .admin-primary-button { width: 100%; margin: 0; }
+.admin-auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 24px; padding: 4px; border: 1px solid var(--admin-line); background: var(--admin-cream); }
+.admin-auth-tabs button { min-height: 38px; border: 0; background: transparent; color: #687672; cursor: pointer; font-size: 11px; font-weight: 700; }
+.admin-auth-tabs button.active { background: white; color: var(--admin-forest); box-shadow: 0 1px 5px rgba(23,51,45,.08); }
+.admin-text-button { margin: 14px 0 0; padding: 4px; border: 0; background: transparent; color: #52645f; cursor: pointer; font-size: 11px; text-decoration: underline; text-underline-offset: 3px; }
+.admin-text-button:disabled { cursor: wait; opacity: .6; }
 .admin-gate-card .admin-login-message { margin: 16px 0 20px; padding: 12px; border-left: 3px solid var(--admin-rose); background: #f8f3eb; color: #53635f; text-align: left; }
 @media (max-width: 880px) { .admin-shell { grid-template-columns: 1fr; } .admin-sidebar { min-height: auto; position: static; padding: 20px; } .admin-logo { width: 68px; } .admin-sidebar-heading { display: none; } .admin-sidebar nav { grid-template-columns: repeat(4,1fr); margin-top: 18px; } .admin-sidebar nav button { justify-content: center; padding: 10px 5px; font-size: 10px; } .admin-sidebar nav small { display: none; } .admin-account { margin-top: 18px; } .admin-workspace { padding: 38px 20px 70px; } }
 @media (max-width: 620px) { .admin-sidebar nav { grid-template-columns: repeat(2,1fr); } .admin-topbar { align-items: start; flex-direction: column; } .admin-topbar h1 { font-size: 48px; } .admin-form-grid { grid-template-columns: 1fr; } .admin-form-grid label.wide { grid-column: auto; } .admin-editor { padding: 22px 17px; } .admin-editor-heading { display: block; } .admin-editor-heading > span { display: block; margin-top: 12px; } .admin-list article { grid-template-columns: 35px 1fr; } .admin-list-actions { grid-column: 2; } .admin-gate-card { padding: 40px 25px; } }
