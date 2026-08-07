@@ -371,6 +371,23 @@ or alongside those edits, prioritize:
 6. publish expert-led articles and resources based on Hannah and Kimberly’s
    real workshops, questions, and lived experience.
 
+## Platform administration
+
+The Passageway platform branch introduces a protected `/admin` content studio
+backed by D1 and R2. It manages services and pricing, events, blog posts,
+resources, team profiles, testimonials, homepage announcements, and invited
+admin users. Public blog, events, and resources hubs consume only published or
+active content; featured events can appear on the homepage.
+
+Roles are `admin` and `editor`. `isaacmosesbell@gmail.com` is the seeded initial
+administrator. Hannah and Kimberly should be added as editors inside the admin
+studio when their chosen ChatGPT account email addresses are confirmed. The
+admin surface uses ChatGPT sign-in plus a server-side allowlist, is excluded
+from search indexing, and never exposes drafts publicly.
+
+The detailed platform design and remaining integration prerequisites live in
+`docs/PASSAGEWAY_PLATFORM_ROADMAP.md`.
+
 ## Items that must be confirmed rather than assumed
 
 - Kimberly's preferred public full name and any credentials
@@ -381,3 +398,4 @@ or alongside those edits, prioritize:
 - Social profile URLs
 - Privacy-policy and analytics-consent requirements
 - Which email addresses should receive analytics reports
+- Hannah and Kimberly's editor-account email addresses
