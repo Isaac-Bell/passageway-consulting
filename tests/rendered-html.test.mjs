@@ -168,16 +168,17 @@ for (const page of livingContentPages) {
   });
 }
 
-test("keeps Passageway Admin private and sign-in gated", async () => {
+test("keeps Passageway Admin private and ready for Passageway-owned email sign-in", async () => {
   const response = await fetchSite("/admin");
   const html = await response.text();
   assert.equal(response.status, 200);
   assert.match(html, /Passageway Admin/i);
-  assert.match(html, /Sign in to Passageway Admin/i);
+  assert.match(html, /The admin space is being connected/i);
+  assert.doesNotMatch(html, /Sign in with ChatGPT/i);
   assert.match(html, /<meta name="robots" content="noindex, nofollow"/i);
 });
 
-test("public CMS API degrades safely before a database binding is present", async () => {
+test("public CMS API degrades safely before Supabase is configured", async () => {
   const response = await fetchSite("/api/public/content?collection=posts", "application/json");
   assert.equal(response.status, 200);
   assert.deepEqual(await response.json(), { items: [] });

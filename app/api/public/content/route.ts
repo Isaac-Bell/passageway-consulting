@@ -15,8 +15,8 @@ async function safe(action: () => Promise<Response>, fallback: object) {
   try {
     return await action();
   } catch {
-    // Agent previews and source builds do not have the production D1 binding.
-    // A quiet empty response preserves the static site while hosted data is unavailable.
+    // Agent previews and source builds do not have the production Supabase
+    // environment. A quiet empty response preserves the static site there.
     return Response.json(fallback);
   }
 }
