@@ -88,7 +88,10 @@ test("serves a canonical XML sitemap", async () => {
   assert.match(body, /<loc>https:\/\/passagewayconsulting\.com\/nervous-system-regulation-for-women<\/loc>/i);
   assert.match(body, /<loc>https:\/\/passagewayconsulting\.com\/online-womens-emotional-health-workshops<\/loc>/i);
   assert.match(body, /<loc>https:\/\/passagewayconsulting\.com\/self-compassion-for-women<\/loc>/i);
-  assert.match(body, /<lastmod>2026-08-06T00:00:00\.000Z<\/lastmod>/i);
+  assert.match(body, /<lastmod>2026-08-08T00:00:00\.000Z<\/lastmod>/i);
+  assert.match(body, /<loc>https:\/\/passagewayconsulting\.com\/blog<\/loc>/i);
+  assert.match(body, /<loc>https:\/\/passagewayconsulting\.com\/events<\/loc>/i);
+  assert.match(body, /<loc>https:\/\/passagewayconsulting\.com\/resources<\/loc>/i);
 });
 
 const searchPages = [
@@ -146,4 +149,36 @@ test("renders development preview metadata", async () => {
     /^text\/html\b/i,
   );
   assert.match(await response.text(), developmentPreviewMeta);
+});
+
+const livingContentPages = [
+  { path: "/blog", title: /Emotional Health Articles for Women \| Passageway Consulting/i, heading: /Words for the journey/i },
+  { path: "/events", title: /Online Emotional Health Workshops &amp; Events \| Passageway/i, heading: /Upcoming workshops/i },
+  { path: "/resources", title: /Free Emotional Health Resources for Women \| Passageway/i, heading: /Gentle tools for .*real life/i },
+];
+
+for (const page of livingContentPages) {
+  test(`renders public CMS index page: ${page.path}`, async () => {
+    const response = await fetchSite(page.path);
+    const html = await response.text();
+    assert.equal(response.status, 200);
+    assert.match(html, page.title);
+    assert.match(html, page.heading);
+    assert.match(html, new RegExp(`<link rel="canonical" href="https:\\/\\/passagewayconsulting\\.com${page.path}"`, "i"));
+  });
+}
+
+test("keeps Passageway Admin private and sign-in gated", async () => {
+  const response = await fetchSite("/admin");
+  const html = await response.text();
+  assert.equal(response.status, 200);
+  assert.match(html, /Passageway Admin/i);
+  assert.match(html, /Sign in to Passageway Admin/i);
+  assert.match(html, /<meta name="robots" content="noindex, nofollow"/i);
+});
+
+test("public CMS API degrades safely before a database binding is present", async () => {
+  const response = await fetchSite("/api/public/content?collection=posts", "application/json");
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), { items: [] });
 });

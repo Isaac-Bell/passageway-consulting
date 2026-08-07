@@ -1,34 +1,8 @@
 import Link from "next/link";
+import { FeaturedEventBanner, ManagedServices } from "./components/CmsPublic";
 
 const email = "hello@passagewayconsulting.com";
 const bookingUrl = "https://passagewayconsulting.as.me/";
-
-const pathways = [
-  {
-    number: "01",
-    eyebrow: "Personal",
-    title: "One-to-one consulting",
-    copy: "Personalized support to explore emotional wounds, reclaim your power, and move forward with greater resilience.",
-    href: "/online-emotional-health-consulting",
-    link: "Explore online consulting",
-  },
-  {
-    number: "02",
-    eyebrow: "Shared",
-    title: "One-day workshops",
-    copy: "A brief but impactful experience where learning, honest connection, and shared healing come together.",
-    href: "/online-womens-emotional-health-workshops",
-    link: "Explore online workshops",
-  },
-  {
-    number: "03",
-    eyebrow: "Transformational",
-    title: "Three-week programs",
-    copy: "An immersive journey for women ready to grow in community, practice new tools, and make change last.",
-    href: "/online-womens-emotional-health-workshops#cohorts",
-    link: "Explore online cohorts",
-  },
-];
 
 const values = [
   ["Compassion", "Your story makes sense and deserves love, dignity, and truth."],
@@ -141,6 +115,8 @@ export default function Home() {
             <Link href="#story">Our story</Link>
             <Link href="#guides">Meet us</Link>
             <Link href="#pricing">Pricing</Link>
+            <Link href="/events">Events</Link>
+            <Link href="/blog">Blog</Link>
             <details className="resources-nav">
               <summary>Resources</summary>
               <div>
@@ -165,6 +141,9 @@ export default function Home() {
               <Link href="#guides">Hannah & Kimberly</Link>
               <Link href="#beliefs">Guiding truths</Link>
               <Link href="#pricing">Pricing</Link>
+              <Link href="/events">Events</Link>
+              <Link href="/blog">Blog</Link>
+              <Link href="/resources">Resources</Link>
               <Link href="#resources">Free reflection guide</Link>
               <Link href="/online-emotional-health-consulting">Online consulting</Link>
               <Link href="/online-womens-emotional-health-workshops">Online workshops</Link>
@@ -215,27 +194,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="pathway-section" id="experiences">
-        <div className="shell">
-          <div className="section-heading reveal">
-            <p className="kicker">Ways to work together</p>
-            <h2>Support for the step you’re on.</h2>
-            <p>Whether you need a quiet one-to-one conversation or a longer shared journey, every offering is online and there is room to begin exactly where you are.</p>
-          </div>
-
-          <div className="pathway-grid">
-            {pathways.map((pathway) => (
-              <article className="pathway-card reveal" key={pathway.number}>
-                <div className="pathway-number">{pathway.number}</div>
-                <p className="card-eyebrow">{pathway.eyebrow}</p>
-                <h3>{pathway.title}</h3>
-                <p>{pathway.copy}</p>
-                <a href={pathway.href}>{pathway.link} <Arrow /></a>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FeaturedEventBanner />
+      <ManagedServices variant="pathways" />
 
       <section className="about-section" id="about">
         <div className="shell about-grid">
@@ -386,40 +346,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="pricing-section" id="pricing">
-        <div className="shell">
-          <div className="pricing-heading reveal">
-            <p className="kicker">Session pricing</p>
-            <h2>Clear support. Simple pricing.</h2>
-            <p>Choose individual attention or the combined perspective of Hannah and Kimberly together.</p>
-          </div>
-          <div className="pricing-grid">
-            <article className="price-card reveal">
-              <div className="price-card-top"><span>One consultant</span><span>01</span></div>
-              <h3>One-on-one</h3>
-              <div className="price-pair">
-                <div><small>Initial session</small><strong><sup>$</sup>100</strong></div>
-                <div><small>Consultations</small><strong><sup>$</sup>55</strong></div>
-              </div>
-              <p>Personalized support with Hannah or Kimberly, tailored to what you are walking through.</p>
-              <a className="text-link" href={bookingUrl} target="_blank" rel="noreferrer">Choose your consultant <Arrow /></a>
-            </article>
-            <article className="price-card price-card-featured reveal">
-              <div className="price-card-top"><span>Combined consulting</span><span>02</span></div>
-              <h3>Kimberly + Hannah</h3>
-              <div className="price-pair">
-                <div><small>Initial session</small><strong><sup>$</sup>160</strong></div>
-                <div><small>Consultations</small><strong><sup>$</sup>110</strong></div>
-              </div>
-              <p>Two complementary perspectives, one supportive space, and a shared commitment to your growth.</p>
-              <a className="text-link text-link-light" href={bookingUrl} target="_blank" rel="noreferrer">
-                Book together <Arrow />
-              </a>
-            </article>
-          </div>
-          <p className="pricing-note reveal">Questions about the best fit? <a href={`mailto:${email}?subject=Passageway%20session%20question`}>Send us a note</a> and we’ll help you choose.</p>
-        </div>
-      </section>
+      <ManagedServices variant="pricing" />
 
       <section className="cohort-section" id="cohorts">
         <div className="shell cohort-grid">
@@ -525,8 +452,8 @@ export default function Home() {
             <p>Connect. Heal. Empower.</p>
           </div>
           <div className="footer-links">
-            <div><strong>Explore</strong><a href="#about">About</a><Link href="/online-emotional-health-consulting">Online consulting</Link><Link href="/nervous-system-regulation-for-women">Nervous-system support</Link><Link href="/online-womens-emotional-health-workshops">Online workshops</Link><Link href="/self-compassion-for-women">Self-compassion</Link></div>
-            <div><strong>Connect</strong><a href={bookingUrl} target="_blank" rel="noreferrer">Book Hannah</a><a href={bookingUrl} target="_blank" rel="noreferrer">Book Kimberly</a><a href={`mailto:${email}`}>Email us</a></div>
+            <div><strong>Explore</strong><a href="#about">About</a><Link href="/online-emotional-health-consulting">Online consulting</Link><Link href="/online-womens-emotional-health-workshops">Online workshops</Link><Link href="/events">Events</Link><Link href="/blog">Blog</Link><Link href="/resources">Resources</Link></div>
+            <div><strong>Connect</strong><a href={bookingUrl} target="_blank" rel="noreferrer">Book Hannah</a><a href={bookingUrl} target="_blank" rel="noreferrer">Book Kimberly</a><a href={`mailto:${email}`}>Email us</a><Link href="/admin">Passageway Admin</Link></div>
           </div>
         </div>
         <div className="shell footer-bottom">
