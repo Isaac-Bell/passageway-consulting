@@ -7,7 +7,7 @@ hosting. Keep it current as business decisions are confirmed.
 ## Project at a glance
 
 - **Business:** Passageway Consulting
-- **Founders and guides:** Hannah Spacek and Kimberly
+- **Founders and guides:** Hannah Spacek and Kimberly Rankins
 - **Production website:** <https://passagewayconsulting.com>
 - **Source repository:** <https://github.com/Isaac-Bell/passageway-consulting>
 - **Booking provider:** Acuity Scheduling at
@@ -142,7 +142,7 @@ Credentials currently supplied:
 - Regenerative Detoxification specialist training, International School of
   Regenerative Detoxification
 
-### Kimberly
+### Kimberly Rankins
 
 Kimberly brings more than 30 years of Christian ministry to women and a deeply
 lived understanding of healing. Her journey includes moving through insecurity,
@@ -151,8 +151,8 @@ blends compassion, love, and truth. She supports women in untangling trauma,
 self-doubt, and beliefs that no longer serve them so they can reclaim their
 voice, embody their power, and move toward a life that feels peaceful and true.
 
-Confirm Kimberly's preferred public full name, credentials, and any wording
-updates before expanding her biography or structured business data.
+Kimberly's preferred public name is **Kimberly Rankins**. Confirm any public
+credentials and wording updates before expanding structured business data.
 
 ## Offers and pricing
 
@@ -382,11 +382,13 @@ admin users. Public blog, events, and resources hubs consume only published or
 active content; featured events can appear on the homepage.
 
 Roles are `admin` and `editor`. `isaacmosesbell@gmail.com` is the seeded initial
-administrator. Hannah and Kimberly should be added as editors inside the admin
-studio using their ordinary email addresses. The admin surface uses secure
-one-time email links from Supabase Auth plus a database allowlist, is excluded
-from search indexing, and never exposes drafts publicly. Row-level security is
-the final authority for public, editor, and administrator access.
+administrator, and `passagewayconsultingkc@gmail.com` is the current shared
+Passageway administrator. The admin surface supports both
+persistent email/password sessions and secure one-time email links from Supabase
+Auth plus a database allowlist. It is excluded from search indexing and never
+exposes drafts publicly. Row-level security is the final authority for public,
+editor, and administrator access. Separate named accounts are required before
+private applicant or client information is added.
 
 The production Supabase project is `Passageway Consulting` inside the
 `Owl Consulting` organization, in `us-east-2` (project reference
@@ -403,11 +405,13 @@ shown by Supabase's **Connect** panel rather than copying credentials into this
 file.
 
 The detailed platform design and remaining integration prerequisites live in
-`docs/PASSAGEWAY_PLATFORM_ROADMAP.md`.
+`docs/PASSAGEWAY_PLATFORM_ROADMAP.md`. The agreed cohort, Stripe payment,
+native-booking, and calendar direction lives in
+`docs/COHORTS_BOOKING_PAYMENTS_PLAN.md`.
 
 ## Items that must be confirmed rather than assumed
 
-- Kimberly's preferred public full name and any credentials
+- Kimberly Rankins' public credentials, if any
 - Whether a public mailing or office address should ever be displayed (do not
   infer one from registration or contact records)
 - Workshop and cohort dates, format, pricing, capacity, and curriculum
@@ -415,4 +419,6 @@ The detailed platform design and remaining integration prerequisites live in
 - Social profile URLs
 - Privacy-policy and analytics-consent requirements
 - Which email addresses should receive analytics reports
-- Hannah and Kimberly's editor email addresses
+- Hannah and Kimberly's separate admin email addresses before private client data is stored
+- The calendar provider and calendars currently used for appointments
+- Stripe account ownership and approved payment, cancellation, refund, and tax policies

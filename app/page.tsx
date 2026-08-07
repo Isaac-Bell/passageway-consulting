@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FeaturedEventBanner, ManagedServices } from "./components/CmsPublic";
+import { FeaturedEventBanner, ManagedServices, ManagedTeam } from "./components/CmsPublic";
 
 const email = "hello@passagewayconsulting.com";
 const bookingUrl = "https://passagewayconsulting.as.me/";
@@ -305,42 +305,7 @@ export default function Home() {
             <p>You do not need to have the right words before you reach out. A first conversation is simply a chance to be heard and explore what support could look like.</p>
           </div>
 
-          <div className="guide-grid">
-            <article className="guide-card reveal">
-              <div className="guide-portrait hannah-portrait">
-                <img src="/images/hannah-spacek.webp" alt="Hannah Spacek" width="900" height="1333" />
-              </div>
-              <div className="guide-content">
-                <p className="card-eyebrow">ND, CHC · Life Consultant</p>
-                <h3>Hannah Spacek</h3>
-                <p className="guide-role">Naturopath · Regenerative Detoxification Specialist · Certified Health Coach</p>
-                <p>Hannah has worked in the wellness field for over ten years and has spent more than eight years on her own healing journey—overcoming chronic anxiety, people-pleasing, low self-esteem, and the struggle to have a voice.</p>
-                <p className="guide-second-paragraph">Today, she combines natural health principles with practical guidance to help women move beyond limiting beliefs and into self-acceptance, confidence, and freedom.</p>
-                <p className="guide-credentials">Naturopathic Doctorate, New Eden School of Natural Health & Herbal Studies · Certified Health Coach, Trinity School of Natural Health · Regenerative Detoxification specialist training.</p>
-                <div className="focus-tags"><span>Dating</span><span>Anxiety</span><span>Self-esteem</span><span>Empowerment</span></div>
-                <a className="button button-cream" href={bookingUrl} target="_blank" rel="noreferrer">
-                  Book with Hannah <Arrow />
-                </a>
-              </div>
-            </article>
-
-            <article className="guide-card reveal">
-              <div className="guide-portrait kimberly-portrait">
-                <img src="/images/kimberly.webp" alt="Kimberly" width="900" height="900" />
-              </div>
-              <div className="guide-content">
-                <p className="card-eyebrow">Life Consultant</p>
-                <h3>Kimberly</h3>
-                <p className="guide-role">30+ years ministering to women · Compassion, love & truth</p>
-                <p>At 61, Kimberly brings more than 30 years of Christian ministry and a deeply lived understanding of healing. Her own fifteen-year journey has carried her through insecurity, self-hatred, religious trauma, and leaving a toxic, abusive marriage.</p>
-                <p className="guide-second-paragraph">That journey gives her grounded empathy for women facing hard places. She helps clients gently untangle trauma, self-doubt, and beliefs that no longer serve them—so they can reclaim their voice and step into a life that feels peaceful and true.</p>
-                <div className="focus-tags"><span>Trauma</span><span>Self-worth</span><span>Voice</span><span>Personal freedom</span></div>
-                <a className="button button-cream" href={bookingUrl} target="_blank" rel="noreferrer">
-                  Book with Kimberly <Arrow />
-                </a>
-              </div>
-            </article>
-          </div>
+          <ManagedTeam />
 
           <p className="guide-note reveal">Not sure who to choose? <a href={bookingUrl} target="_blank" rel="noreferrer">Explore every appointment option</a> on the Passageway booking page.</p>
         </div>
