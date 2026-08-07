@@ -10,7 +10,7 @@ technical and user-management access.
 ## Platform v1 — implemented foundation
 
 The first platform release introduces a protected `/admin` content studio with
-durable Cloudflare-backed content and uploads.
+Passageway-owned Supabase content, authentication, and uploads.
 
 ### Roles
 
@@ -18,8 +18,9 @@ durable Cloudflare-backed content and uploads.
 - **Editor:** services, events, blog posts, resources, team profiles,
   testimonials, and homepage announcements.
 - The initial administrator is `isaacmosesbell@gmail.com`.
-- Hannah and Kimberly should be added as editors once their chosen ChatGPT
-  account email addresses are confirmed.
+- Hannah and Kimberly can be added as editors using their ordinary email
+  addresses. They sign in through a secure one-time email link and do not need
+  ChatGPT accounts.
 
 ### Managed content
 
@@ -43,9 +44,17 @@ durable Cloudflare-backed content and uploads.
 
 ### Storage and security
 
-- D1 stores structured content, publishing state, roles, and timestamps.
-- R2 stores uploaded JPG, PNG, WebP, and PDF files.
-- Passageway Admin uses ChatGPT sign-in plus a server-side database allowlist.
+- Supabase Postgres stores structured content, publishing state, roles, and
+  timestamps. Isaac can manage it in Supabase or connect DBeaver using a
+  Supabase Postgres connection string.
+- Supabase Storage stores uploaded JPG, PNG, WebP, and PDF files.
+- Supabase Auth supplies passwordless email sign-in. A database allowlist and
+  row-level security restrict all draft and write access to Passageway staff.
+- The production project is `Passageway Consulting` in the `Owl Consulting`
+  organization, region `us-east-2`, project reference `qmlidzzjsutgjnocaain`.
+- Production Auth configuration must use `https://passagewayconsulting.com` as
+  the Site URL and include `https://passagewayconsulting.com/admin` in its
+  redirect allowlist.
 - Public pages never expose draft content.
 - Archive actions are soft deletes, preserving recoverability.
 - Admin pages are excluded from search indexing.
@@ -87,8 +96,8 @@ products, refund language, taxes, and operational owner.
 
 ## Information still required
 
-- Hannah's editor-account email;
-- Kimberly's editor-account email;
+- Hannah's editor email;
+- Kimberly's editor email;
 - Kimberly's preferred public full name and credentials;
 - Mailchimp form/API configuration and consent wording;
 - GA4 measurement details and analytics-report recipients;

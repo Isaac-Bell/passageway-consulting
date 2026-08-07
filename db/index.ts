@@ -1,13 +1,38 @@
-import { drizzle } from "drizzle-orm/d1";
-import * as schema from "./schema";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
-export async function getDb() {
+export type SupabasePublicConfig = {
+  url: string;
+  publishableKey: string;
+};
+
+export async function getSupabasePublicConfig(): Promise<SupabasePublicConfig> {
   const { env } = await import("cloudflare:workers");
-  if (!env.DB) {
+  const url = stringValue(env.SUPABASE_URL);
+  const publishableKey = stringValue(env.SUPABASE_PUBLISHABLE_KEY);
+
+  if (!url || !publishableKey) {
     throw new Error(
-      "Cloudflare D1 binding `DB` is unavailable. Set the `d1` field in .openai/hosting.json to `DB` or let your control plane inject the real binding values before using the database."
+      "Passageway's Supabase connection is not configured yet. Add SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY to the Sites runtime environment.",
     );
   }
 
-  return drizzle(env.DB, { schema });
+  return { url, publishableKey };
+}
+
+export async function getSupabaseClient(accessToken?: string): Promise<SupabaseClient> {
+  const config = await getSupabasePublicConfig();
+  return createClient(config.url, config.publishableKey, {
+    auth: {
+      autoRefreshToken: false,
+      detectSessionInUrl: false,
+      persistSession: false,
+    },
+    global: accessToken
+      ? { headers: { Authorization: `Bearer ${accessToken}` } }
+      : undefined,
+  });
+}
+
+function stringValue(value: unknown) {
+  return typeof value === "string" ? value.trim() : "";
 }

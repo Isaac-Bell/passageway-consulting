@@ -236,6 +236,8 @@ Preserve these principles:
 - Full validation: `npm test`
 - Node.js requirement: `>=22.13.0`
 - GitHub Actions workflow: `.github/workflows/quality.yml`
+- Passageway-owned data/authentication: Supabase Postgres, Auth, and Storage
+- Hosted runtime variables: `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`
 
 The build produces the validated Worker/server artifact and static assets used
 by Sites. Do not replace the hosting manifest, Vinext architecture, lockfile, or
@@ -373,17 +375,32 @@ or alongside those edits, prioritize:
 
 ## Platform administration
 
-The Passageway platform branch introduces a protected `/admin` content studio
-backed by D1 and R2. It manages services and pricing, events, blog posts,
+The Passageway platform introduces a protected `/admin` content studio backed
+by Passageway-owned Supabase Postgres and Storage. It manages services and pricing, events, blog posts,
 resources, team profiles, testimonials, homepage announcements, and invited
 admin users. Public blog, events, and resources hubs consume only published or
 active content; featured events can appear on the homepage.
 
 Roles are `admin` and `editor`. `isaacmosesbell@gmail.com` is the seeded initial
 administrator. Hannah and Kimberly should be added as editors inside the admin
-studio when their chosen ChatGPT account email addresses are confirmed. The
-admin surface uses ChatGPT sign-in plus a server-side allowlist, is excluded
-from search indexing, and never exposes drafts publicly.
+studio using their ordinary email addresses. The admin surface uses secure
+one-time email links from Supabase Auth plus a database allowlist, is excluded
+from search indexing, and never exposes drafts publicly. Row-level security is
+the final authority for public, editor, and administrator access.
+
+The production Supabase project is `Passageway Consulting` inside the
+`Owl Consulting` organization, in `us-east-2` (project reference
+`qmlidzzjsutgjnocaain`). ChatGPT Sites stores only the public project URL and
+publishable browser key as runtime environment variables. Database migrations
+live in `supabase/migrations/`; do not put the service-role key, database
+password, or a connection string in GitHub or Sites source.
+
+For magic links, Supabase Auth must allow
+`https://passagewayconsulting.com/admin` as a redirect URL and use
+`https://passagewayconsulting.com` as the Site URL. Database administration is
+available through the Supabase dashboard or DBeaver; use the connection details
+shown by Supabase's **Connect** panel rather than copying credentials into this
+file.
 
 The detailed platform design and remaining integration prerequisites live in
 `docs/PASSAGEWAY_PLATFORM_ROADMAP.md`.
@@ -398,4 +415,4 @@ The detailed platform design and remaining integration prerequisites live in
 - Social profile URLs
 - Privacy-policy and analytics-consent requirements
 - Which email addresses should receive analytics reports
-- Hannah and Kimberly's editor-account email addresses
+- Hannah and Kimberly's editor email addresses

@@ -112,7 +112,7 @@ const definitions: Record<ContentCollection, Definition> = {
     label: "Admin users", singular: "admin user", titleField: "name", statusField: "role", adminOnly: true,
     description: "Invite Passageway editors and choose who can manage technical settings and other users.",
     fields: [
-      field("name", "Name", { required: true }), field("email", "ChatGPT account email", { required: true }),
+      field("name", "Name", { required: true }), field("email", "Email address", { required: true, hint: "They can request a secure sign-in link at /admin once this email is active." }),
       field("role", "Role", { type: "select", options: ["editor", "admin"], defaultValue: "editor" }), field("active", "Access enabled", { type: "checkbox", defaultValue: true }),
     ],
   },
@@ -120,7 +120,7 @@ const definitions: Record<ContentCollection, Definition> = {
 
 const navOrder: ContentCollection[] = ["services", "events", "posts", "resources", "team", "testimonials", "homepage", "users"];
 
-export default function AdminDashboard({ user, signOutUrl }: { user: CmsUser; signOutUrl: string }) {
+export default function AdminDashboard({ user, accessToken, onSignOut }: { user: CmsUser; accessToken: string; onSignOut: () => Promise<void> }) {
   const available = useMemo(() => navOrder.filter((key) => !definitions[key].adminOnly || user.role === "admin"), [user.role]);
   const [collection, setCollection] = useState<ContentCollection>("services");
   const [items, setItems] = useState<Item[]>([]);
@@ -132,10 +132,16 @@ export default function AdminDashboard({ user, signOutUrl }: { user: CmsUser; si
   const [message, setMessage] = useState("");
   const definition = definitions[collection];
 
+  const authorizedFetch = useCallback((input: RequestInfo | URL, init: RequestInit = {}) => {
+    const headers = new Headers(init.headers);
+    headers.set("authorization", `Bearer ${accessToken}`);
+    return fetch(input, { ...init, headers });
+  }, [accessToken]);
+
   const load = useCallback(async (next: ContentCollection) => {
     setLoading(true); setMessage("");
     try {
-      const response = await fetch(`/api/admin/content?collection=${next}`, { cache: "no-store" });
+      const response = await authorizedFetch(`/api/admin/content?collection=${next}`, { cache: "no-store" });
       const payload = await response.json() as { items?: Item[]; error?: string };
       if (!response.ok) throw new Error(payload.error || "Could not load content");
       const nextItems = payload.items ?? [];
@@ -149,7 +155,7 @@ export default function AdminDashboard({ user, signOutUrl }: { user: CmsUser; si
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Could not load content");
     } finally { setLoading(false); }
-  }, []);
+  }, [authorizedFetch]);
 
   // Loading is intentionally tied to the active navigation section.
   // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -157,12 +163,12 @@ export default function AdminDashboard({ user, signOutUrl }: { user: CmsUser; si
   useEffect(() => {
     void Promise.all(available.filter((key) => key !== collection).map(async (key) => {
       try {
-        const response = await fetch(`/api/admin/content?collection=${key}`, { cache: "no-store" });
+        const response = await authorizedFetch(`/api/admin/content?collection=${key}`, { cache: "no-store" });
         const payload = await response.json() as { items?: Item[] };
         if (response.ok) setCounts((current) => ({ ...current, [key]: payload.items?.length ?? 0 }));
       } catch { /* Counts are a convenience; section loading remains authoritative. */ }
     }));
-  }, [available, collection]);
+  }, [available, authorizedFetch, collection]);
 
   function selectCollection(next: ContentCollection) {
     setCollection(next); setEditing(null); setForm({});
@@ -179,7 +185,7 @@ export default function AdminDashboard({ user, signOutUrl }: { user: CmsUser; si
     setSaving(true); setMessage("");
     try {
       const isNew = !editing || editing.id === "new";
-      const response = await fetch("/api/admin/content", {
+      const response = await authorizedFetch("/api/admin/content", {
         method: isNew ? "POST" : "PATCH",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ collection, id: editing?.id, data: form }),
@@ -196,7 +202,7 @@ export default function AdminDashboard({ user, signOutUrl }: { user: CmsUser; si
 
   async function archive(item: Item) {
     if (!window.confirm(`Archive this ${definition.singular}? It will disappear from the website but remain recoverable in the database.`)) return;
-    const response = await fetch("/api/admin/content", {
+    const response = await authorizedFetch("/api/admin/content", {
       method: "DELETE", headers: { "content-type": "application/json" },
       body: JSON.stringify({ collection, id: item.id, email: item.email }),
     });
@@ -219,7 +225,7 @@ export default function AdminDashboard({ user, signOutUrl }: { user: CmsUser; si
         </nav>
         <div className="admin-account">
           <div><strong>{user.name}</strong><span>{user.role}</span></div>
-          <a href={signOutUrl}>Sign out</a>
+          <button type="button" onClick={() => void onSignOut()}>Sign out</button>
         </div>
       </aside>
 
@@ -232,7 +238,7 @@ export default function AdminDashboard({ user, signOutUrl }: { user: CmsUser; si
         {message && <div className="admin-message" role="status">{message}</div>}
 
         {editing ? (
-          <Editor definition={definition} form={form} setForm={setForm} saving={saving} onSave={save} onCancel={definition.singleton ? undefined : () => setEditing(null)} />
+          <Editor definition={definition} form={form} setForm={setForm} saving={saving} authorizedFetch={authorizedFetch} onSave={save} onCancel={definition.singleton ? undefined : () => setEditing(null)} />
         ) : loading ? (
           <div className="admin-empty">Loading {definition.label.toLowerCase()}…</div>
         ) : items.length === 0 ? (
@@ -253,9 +259,9 @@ export default function AdminDashboard({ user, signOutUrl }: { user: CmsUser; si
   );
 }
 
-function Editor({ definition, form, setForm, saving, onSave, onCancel }: {
+function Editor({ definition, form, setForm, saving, authorizedFetch, onSave, onCancel }: {
   definition: Definition; form: Record<string, unknown>; setForm: (value: Record<string, unknown>) => void;
-  saving: boolean; onSave: () => Promise<void>; onCancel?: () => void;
+  saving: boolean; authorizedFetch: (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>; onSave: () => Promise<void>; onCancel?: () => void;
 }) {
   const [uploading, setUploading] = useState("");
 
@@ -264,7 +270,7 @@ function Editor({ definition, form, setForm, saving, onSave, onCancel }: {
     setUploading(fieldEntry.name);
     try {
       const data = new FormData(); data.append("file", file);
-      const response = await fetch("/api/admin/uploads", { method: "POST", body: data });
+      const response = await authorizedFetch("/api/admin/uploads", { method: "POST", body: data });
       const payload = await response.json() as { url?: string; error?: string };
       if (!response.ok || !payload.url) throw new Error(payload.error || "Upload failed");
       setForm({ ...form, [fieldEntry.name]: payload.url });

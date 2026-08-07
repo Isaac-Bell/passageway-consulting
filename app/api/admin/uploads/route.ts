@@ -1,4 +1,4 @@
-import { getCmsUser } from "@/app/lib/cms-auth";
+import { getCmsSession } from "@/app/lib/cms-auth";
 import { slugify } from "@/app/lib/cms-data";
 
 export const dynamic = "force-dynamic";
@@ -8,8 +8,8 @@ const maxBytes = 10 * 1024 * 1024;
 
 export async function POST(request: Request) {
   try {
-    const user = await getCmsUser();
-    if (!user) return Response.json({ error: "Sign in with an invited Passageway Admin account" }, { status: 401 });
+    const session = await getCmsSession(request);
+    if (!session) return Response.json({ error: "Sign in with an invited Passageway email" }, { status: 401 });
 
     const form = await request.formData();
     const file = form.get("file");
@@ -22,13 +22,15 @@ export async function POST(request: Request) {
     const folder = file.type === "application/pdf" ? "resources" : "images";
     const key = `${folder}/${Date.now()}-${crypto.randomUUID().slice(0, 8)}-${stem}.${extension}`;
 
-    const { env } = await import("cloudflare:workers");
-    await env.BUCKET.put(key, await file.arrayBuffer(), {
-      httpMetadata: { contentType: file.type },
-      customMetadata: { uploadedBy: user.email, originalName: file.name },
+    const { error: uploadError } = await session.client.storage.from("passageway-cms").upload(key, await file.arrayBuffer(), {
+      contentType: file.type,
+      cacheControl: "3600",
+      upsert: false,
     });
+    if (uploadError) throw new Error(uploadError.message);
 
-    return Response.json({ url: `/media/${key}`, key, name: file.name });
+    const { data } = session.client.storage.from("passageway-cms").getPublicUrl(key);
+    return Response.json({ url: data.publicUrl, key, name: file.name });
   } catch (cause) {
     const message = cause instanceof Error ? cause.message : "Upload failed";
     return Response.json({ error: message }, { status: 500 });
